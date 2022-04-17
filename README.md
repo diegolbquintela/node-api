@@ -18,5 +18,5 @@ Demo E-Commerce App built with Node, Express and MySQL.
 
 1. Clone
 2. Change config.env file in config folder
-3. `cd shop-node` and run `npm install`
+3. `cd node-api` and run `npm install`
 4. Start the server by running `npm start`
