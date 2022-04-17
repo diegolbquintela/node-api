@@ -20,6 +20,21 @@ exports.postAddProduct = (req, res, next) => {
   res.redirect('/');
 };
 
+exports.getEditProduct = (req, res, next) => {
+  const prodId = req.params.productId; // get id from url
+  Product.findById(prodId, (product) => {
+    if (!product) {
+      return res.redirect('/'); // TODO: add error screen later
+    }
+    res.render('admin/edit-product', {
+      pageTitle: 'Edit Product',
+      path: '/admin/edit-product',
+      editing: editMode,
+      product,
+    });
+  });
+};
+
 exports.getProducts = (req, res, next) => {
   Product.fetchAll((products) => {
     res.sender('admin/products', {
@@ -28,4 +43,13 @@ exports.getProducts = (req, res, next) => {
       path: '/admin/products',
     });
   });
+};
+
+exports.postAddProduct = (req, res, next) => {
+  const { title, imageURL, price, description } = req.body;
+
+  const product = new Product(title, imageURL, description, price);
+
+  product.save();
+  res.redirect('/');
 };
